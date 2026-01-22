@@ -15,26 +15,38 @@ export const useTheme = () => {
 // Theme provider component
 export const ThemeProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(() => {
-    // Check localStorage first, then system preference
+    // Default to dark theme, but check localStorage first
     const saved = localStorage.getItem('theme')
     if (saved) {
       return saved === 'dark'
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
+    // Default to dark theme instead of system preference
+    return true
   })
 
   // Update document class and localStorage when theme changes
   useEffect(() => {
+    const root = document.documentElement
     if (isDark) {
-      document.documentElement.classList.add('dark')
+      root.classList.add('dark')
       localStorage.setItem('theme', 'dark')
     } else {
-      document.documentElement.classList.remove('dark')
+      root.classList.remove('dark')
       localStorage.setItem('theme', 'light')
     }
   }, [isDark])
 
-  // Listen for system theme changes
+  // Apply theme immediately on mount
+  useEffect(() => {
+    const root = document.documentElement
+    if (isDark) {
+      root.classList.add('dark')
+    } else {
+      root.classList.remove('dark')
+    }
+  }, [])
+
+  // Listen for system theme changes (but don't auto-switch since we default to dark)
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     const handleChange = (e) => {
