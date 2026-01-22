@@ -80,8 +80,8 @@ api.interceptors.response.use(
           toast.error(data.error || 'Something went wrong')
       }
     } else if (error.request) {
-      // Network error
-      toast.error('Network error. Please check your connection.')
+      // Network error - don't show toast for background requests
+      console.warn('Network error - API may not be available')
     } else {
       // Other error
       toast.error('Something went wrong. Please try again.')

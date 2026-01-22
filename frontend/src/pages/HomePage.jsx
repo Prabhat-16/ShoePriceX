@@ -37,6 +37,12 @@ const HomePage = () => {
         setPopularBrands(response.data.popular_brands || [])
       } catch (error) {
         console.error('Failed to load trending data:', error)
+        // Set fallback data for demo
+        setTrending([
+          { query: 'nike air max', search_count: 150 },
+          { query: 'adidas ultraboost', search_count: 120 },
+          { query: 'running shoes', search_count: 100 }
+        ])
       }
     }
 
