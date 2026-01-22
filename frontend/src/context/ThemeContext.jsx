@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useEffect } from 'react'
 
 // Create context
 const ThemeContext = createContext()
@@ -12,65 +12,34 @@ export const useTheme = () => {
   return context
 }
 
-// Theme provider component
+// Theme provider component - Dark mode only
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(() => {
-    // Default to dark theme, but check localStorage first
-    const saved = localStorage.getItem('theme')
-    if (saved) {
-      return saved === 'dark'
-    }
-    // Default to dark theme instead of system preference
-    return true
-  })
+  // Always dark mode
+  const isDark = true
+  const theme = 'dark'
 
-  // Update document class and localStorage when theme changes
+  // Apply dark theme immediately on mount
   useEffect(() => {
     const root = document.documentElement
-    if (isDark) {
-      root.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      root.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }, [isDark])
-
-  // Apply theme immediately on mount
-  useEffect(() => {
-    const root = document.documentElement
-    if (isDark) {
-      root.classList.add('dark')
-    } else {
-      root.classList.remove('dark')
-    }
+    root.classList.add('dark')
+    // Remove any light theme classes
+    root.classList.remove('light')
+    // Set localStorage to dark
+    localStorage.setItem('theme', 'dark')
   }, [])
 
-  // Listen for system theme changes (but don't auto-switch since we default to dark)
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = (e) => {
-      // Only update if user hasn't manually set a preference
-      if (!localStorage.getItem('theme')) {
-        setIsDark(e.matches)
-      }
-    }
-
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-  }, [])
-
+  // No toggle function needed since we're always dark
   const toggleTheme = () => {
-    setIsDark(prev => !prev)
+    // Do nothing - always stay dark
   }
 
-  const setTheme = (theme) => {
-    setIsDark(theme === 'dark')
+  const setTheme = () => {
+    // Do nothing - always stay dark
   }
 
   const value = {
     isDark,
-    theme: isDark ? 'dark' : 'light',
+    theme,
     toggleTheme,
     setTheme
   }

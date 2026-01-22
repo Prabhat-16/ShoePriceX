@@ -7,14 +7,11 @@ import {
   X, 
   ShoppingBag, 
   TrendingUp, 
-  Sun, 
-  Moon,
   Home,
   Info
 } from 'lucide-react'
 
 import { useSearch } from '../../context/SearchContext'
-import { useTheme } from '../../context/ThemeContext'
 import SearchBar from '../search/SearchBar'
 import AnimatedLogo from '../ui/AnimatedLogo'
 
@@ -24,7 +21,6 @@ const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { query } = useSearch()
-  const { isDark, toggleTheme } = useTheme()
 
   // Handle scroll effect
   useEffect(() => {
@@ -61,8 +57,8 @@ const Navbar = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
-            ? 'bg-white/95 dark:bg-dark-900/95 backdrop-blur-md shadow-soft dark:shadow-dark-soft border-b border-gray-200 dark:border-dark-700' 
-            : 'bg-white dark:bg-dark-900'
+            ? 'bg-dark-900/95 backdrop-blur-md shadow-dark-soft border-b border-dark-700' 
+            : 'bg-dark-900'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,8 +85,8 @@ const Navbar = () => {
                     to={path}
                     className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
                       isActive(path)
-                        ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-dark-800'
+                        ? 'text-primary-400 bg-primary-900/30'
+                        : 'text-gray-300 hover:text-gray-100 hover:bg-dark-800'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -98,39 +94,6 @@ const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
-
-              {/* Theme Toggle */}
-              <motion.button
-                whileHover={{ scale: 1.05, rotate: 180 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={toggleTheme}
-                className="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-dark-800 transition-all duration-200 relative overflow-hidden"
-                aria-label="Toggle theme"
-              >
-                <AnimatePresence mode="wait">
-                  {isDark ? (
-                    <motion.div
-                      key="sun"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Sun className="w-5 h-5" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="moon"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Moon className="w-5 h-5" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -138,7 +101,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-dark-800 transition-colors"
+              className="md:hidden p-2 rounded-lg text-gray-300 hover:text-gray-100 hover:bg-dark-800 transition-colors"
               aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait">
@@ -203,17 +166,17 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute top-0 right-0 w-80 h-full bg-white dark:bg-dark-900 shadow-strong dark:shadow-dark-strong"
+              className="absolute top-0 right-0 w-80 h-full bg-dark-900 shadow-dark-strong"
             >
               <div className="p-6">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
-                  <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">Menu</span>
+                  <span className="text-lg font-semibold text-gray-100">Menu</span>
                   <motion.button
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsMenuOpen(false)}
-                    className="p-2 rounded-lg text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-800 transition-colors"
+                    className="p-2 rounded-lg text-gray-500 hover:text-gray-300 hover:bg-dark-800 transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </motion.button>
@@ -232,8 +195,8 @@ const Navbar = () => {
                         to={path}
                         className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
                           isActive(path)
-                            ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30'
-                            : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-dark-800'
+                            ? 'text-primary-400 bg-primary-900/30'
+                            : 'text-gray-300 hover:text-gray-100 hover:bg-dark-800'
                         }`}
                       >
                         <Icon className="w-5 h-5" />
@@ -241,46 +204,6 @@ const Navbar = () => {
                       </Link>
                     </motion.div>
                   ))}
-                </div>
-
-                {/* Theme Toggle */}
-                <div className="mt-8 pt-6 border-t border-gray-200 dark:border-dark-700">
-                  <motion.button
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3, duration: 0.3 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={toggleTheme}
-                    className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-dark-800 transition-colors w-full"
-                  >
-                    <AnimatePresence mode="wait">
-                      {isDark ? (
-                        <motion.div
-                          key="sun-mobile"
-                          initial={{ rotate: -90, opacity: 0 }}
-                          animate={{ rotate: 0, opacity: 1 }}
-                          exit={{ rotate: 90, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <Sun className="w-5 h-5" />
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="moon-mobile"
-                          initial={{ rotate: 90, opacity: 0 }}
-                          animate={{ rotate: 0, opacity: 1 }}
-                          exit={{ rotate: -90, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <Moon className="w-5 h-5" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                    <span className="font-medium">
-                      {isDark ? 'Light Mode' : 'Dark Mode'}
-                    </span>
-                  </motion.button>
                 </div>
               </div>
             </motion.div>
