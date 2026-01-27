@@ -12,10 +12,7 @@
     @apply bg-dark-900 text-gray-100 transition-colors duration-300;
   }
   
-  /* Force dark mode */
-  html {
-    @apply dark;
-  }
+
   
   /* Custom scrollbar - Dark theme */
   ::-webkit-scrollbar {
