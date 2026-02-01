@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Filter, 
-  Grid, 
-  List, 
-  SortAsc, 
-  Star, 
+import {
+  Filter,
+  Grid,
+  List,
+  SortAsc,
+  Star,
   ExternalLink,
   Loader2,
   AlertCircle,
@@ -90,7 +90,7 @@ const SearchResultsPage = () => {
       }
 
       const response = await searchAPI.searchProducts(params)
-      
+
       setResults(response.data.products || [])
       setPagination(response.data.pagination || {})
       addRecentSearch(searchQuery)
@@ -112,7 +112,7 @@ const SearchResultsPage = () => {
   const extractFilters = (products) => {
     const brands = [...new Set(products.map(p => p.brand).filter(Boolean))]
     const categories = [...new Set(products.map(p => p.category).filter(Boolean))]
-    
+
     setAvailableFilters({
       brands: brands.map(brand => ({ name: brand, count: products.filter(p => p.brand === brand).length })),
       categories: categories.map(cat => ({ name: cat, count: products.filter(p => p.category === cat).length })),
@@ -129,7 +129,7 @@ const SearchResultsPage = () => {
   const handleFilterChange = (filterType, value) => {
     const newFilters = { ...filters, [filterType]: value }
     setFilters(newFilters)
-    
+
     // Update URL parameters
     const newSearchParams = new URLSearchParams(searchParams)
     if (value) {
@@ -146,7 +146,7 @@ const SearchResultsPage = () => {
     const newSearchParams = new URLSearchParams(searchParams)
     newSearchParams.set('page', newPage.toString())
     setSearchParams(newSearchParams)
-    
+
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -180,35 +180,33 @@ const SearchResultsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-dark-900">
       {/* Search Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
+      <div className="bg-dark-900 border-b border-dark-700 sticky top-16 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="flex-1 max-w-2xl">
               <SearchBar placeholder="Search for shoes, brands, or models..." />
             </div>
-            
+
             <div className="flex items-center space-x-4">
               {/* View Mode Toggle */}
-              <div className="flex items-center bg-gray-100 rounded-lg p-1">
+              <div className="flex items-center bg-dark-800 rounded-lg p-1">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-md transition-colors ${
-                    viewMode === 'grid' 
-                      ? 'bg-white text-primary-600 shadow-sm' 
+                  className={`p-2 rounded-md transition-colors ${viewMode === 'grid'
+                      ? 'bg-white text-primary-600 shadow-sm'
                       : 'text-gray-600 hover:text-gray-900'
-                  }`}
+                    }`}
                 >
                   <Grid className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-md transition-colors ${
-                    viewMode === 'list' 
-                      ? 'bg-white text-primary-600 shadow-sm' 
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
+                  className={`p-2 rounded-md transition-colors ${viewMode === 'list'
+                      ? 'bg-dark-700 text-primary-400 shadow-sm'
+                      : 'text-gray-400 hover:text-white'
+                    }`}
                 >
                   <List className="w-4 h-4" />
                 </button>
@@ -229,18 +227,18 @@ const SearchResultsPage = () => {
           {query && (
             <div className="mt-4 flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-2xl font-bold text-white">
                   Search Results for "{query}"
                 </h1>
                 {!loading && (
-                  <p className="text-gray-600 mt-1">
+                  <p className="text-gray-400 mt-1">
                     {pagination.total || 0} products found
                     {filters.brand && ` in ${filters.brand}`}
                     {filters.category && ` • ${filters.category}`}
                   </p>
                 )}
               </div>
-              
+
               {!loading && results.length > 0 && (
                 <select
                   value={filters.sortBy}
@@ -271,12 +269,12 @@ const SearchResultsPage = () => {
                 className="hidden lg:block"
               >
                 <div className="card p-6 sticky top-32">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Filters</h3>
-                  
+                  <h3 className="text-lg font-semibold text-white mb-4">Filters</h3>
+
                   {/* Brand Filter */}
                   {availableFilters.brands.length > 0 && (
                     <div className="mb-6">
-                      <h4 className="font-medium text-gray-900 mb-3">Brand</h4>
+                      <h4 className="font-medium text-gray-200 mb-3">Brand</h4>
                       <div className="space-y-2">
                         {availableFilters.brands.slice(0, 8).map((brand) => (
                           <label key={brand.name} className="flex items-center">
@@ -288,7 +286,7 @@ const SearchResultsPage = () => {
                               onChange={(e) => handleFilterChange('brand', e.target.value)}
                               className="w-4 h-4 text-primary-600 border-gray-300 focus:ring-primary-500"
                             />
-                            <span className="ml-2 text-sm text-gray-700">
+                            <span className="ml-2 text-sm text-gray-300">
                               {brand.name} ({brand.count})
                             </span>
                           </label>
@@ -299,7 +297,7 @@ const SearchResultsPage = () => {
 
                   {/* Price Range Filter */}
                   <div className="mb-6">
-                    <h4 className="font-medium text-gray-900 mb-3">Price Range</h4>
+                    <h4 className="font-medium text-gray-200 mb-3">Price Range</h4>
                     <div className="space-y-2">
                       {availableFilters.priceRanges.map((range, index) => (
                         <label key={index} className="flex items-center">
@@ -314,7 +312,7 @@ const SearchResultsPage = () => {
                             }}
                             className="w-4 h-4 text-primary-600 border-gray-300 focus:ring-primary-500"
                           />
-                          <span className="ml-2 text-sm text-gray-700">
+                          <span className="ml-2 text-sm text-gray-300">
                             {range.label}
                           </span>
                         </label>
@@ -359,7 +357,7 @@ const SearchResultsPage = () => {
             {error && (
               <div className="text-center py-20">
                 <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-white mb-2">
                   Oops! Something went wrong
                 </h3>
                 <p className="text-gray-600 mb-6">{error}</p>
@@ -373,13 +371,13 @@ const SearchResultsPage = () => {
             {/* No Results */}
             {!loading && !error && results.length === 0 && query && (
               <div className="text-center py-20">
-                <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-24 h-24 bg-dark-800 rounded-full flex items-center justify-center mx-auto mb-6">
                   <AlertCircle className="w-12 h-12 text-gray-400" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl font-semibold text-white mb-2">
                   No shoes found for "{query}"
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-400 mb-6">
                   Try adjusting your search terms or filters
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -422,9 +420,8 @@ const SearchResultsPage = () => {
                     <motion.div
                       key={product.id}
                       variants={itemVariants}
-                      className={`card card-hover ${
-                        viewMode === 'list' ? 'flex items-center p-4' : 'overflow-hidden'
-                      }`}
+                      className={`card card-hover ${viewMode === 'list' ? 'flex items-center p-4' : 'overflow-hidden'
+                        }`}
                     >
                       {viewMode === 'grid' ? (
                         // Grid View
@@ -443,22 +440,22 @@ const SearchResultsPage = () => {
                               </div>
                             )}
                           </div>
-                          
+
                           <div className="p-6">
-                            <div className="text-sm text-gray-500 mb-1">{product.brand}</div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                            <div className="text-sm text-primary-400 mb-1">{product.brand}</div>
+                            <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
                               {product.name}
                             </h3>
-                            
+
                             <div className="flex items-center justify-between mb-4">
                               <div>
                                 {product.min_price && (
-                                  <div className="text-2xl font-bold text-gray-900">
+                                  <div className="text-2xl font-bold text-white">
                                     {apiUtils.formatPrice(product.min_price)}
                                   </div>
                                 )}
                                 {product.max_price && product.min_price !== product.max_price && (
-                                  <div className="text-sm text-gray-500">
+                                  <div className="text-sm text-gray-400">
                                     up to {apiUtils.formatPrice(product.max_price)}
                                   </div>
                                 )}
@@ -475,7 +472,7 @@ const SearchResultsPage = () => {
                                 )}
                               </div>
                             </div>
-                            
+
                             <div className="flex gap-2">
                               <Link
                                 to={`/product/${product.id}`}
@@ -500,10 +497,10 @@ const SearchResultsPage = () => {
                             alt={product.name}
                             className="w-20 h-20 object-cover rounded-lg"
                           />
-                          
+
                           <div className="flex-1 ml-4">
                             <div className="text-sm text-gray-500">{product.brand}</div>
-                            <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                            <h3 className="text-lg font-semibold text-white mb-1">
                               {product.name}
                             </h3>
                             <div className="flex items-center space-x-4 text-sm text-gray-500">
@@ -516,20 +513,20 @@ const SearchResultsPage = () => {
                               )}
                             </div>
                           </div>
-                          
+
                           <div className="text-right mr-4">
                             {product.min_price && (
-                              <div className="text-xl font-bold text-gray-900">
+                              <div className="text-xl font-bold text-white">
                                 {apiUtils.formatPrice(product.min_price)}
                               </div>
                             )}
                             {product.max_price && product.min_price !== product.max_price && (
-                              <div className="text-sm text-gray-500">
+                              <div className="text-sm text-gray-400">
                                 up to {apiUtils.formatPrice(product.max_price)}
                               </div>
                             )}
                           </div>
-                          
+
                           <div className="flex gap-2">
                             <Link
                               to={`/product/${product.id}`}
@@ -560,28 +557,27 @@ const SearchResultsPage = () => {
                     >
                       Previous
                     </button>
-                    
+
                     <div className="flex space-x-1">
                       {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
                         const pageNum = Math.max(1, pagination.page - 2) + i
                         if (pageNum > pagination.totalPages) return null
-                        
+
                         return (
                           <button
                             key={pageNum}
                             onClick={() => handlePageChange(pageNum)}
-                            className={`w-10 h-10 rounded-lg font-medium transition-colors ${
-                              pageNum === pagination.page
+                            className={`w-10 h-10 rounded-lg font-medium transition-colors ${pageNum === pagination.page
                                 ? 'bg-primary-600 text-white'
-                                : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-                            }`}
+                                : 'bg-dark-800 text-gray-300 hover:bg-dark-700 border border-dark-600'
+                              }`}
                           >
                             {pageNum}
                           </button>
                         )
                       })}
                     </div>
-                    
+
                     <button
                       onClick={() => handlePageChange(pagination.page + 1)}
                       disabled={!pagination.hasNext}

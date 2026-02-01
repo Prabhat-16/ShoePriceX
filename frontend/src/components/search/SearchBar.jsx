@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Search, 
-  X, 
-  Clock, 
-  TrendingUp, 
+import {
+  Search,
+  X,
+  Clock,
+  TrendingUp,
   ArrowRight,
   Loader2
 } from 'lucide-react'
@@ -19,7 +19,7 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
   const [loadingSuggestions, setLoadingSuggestions] = useState(false)
   const searchRef = useRef(null)
   const navigate = useNavigate()
-  
+
   const {
     query,
     setQuery,
@@ -62,7 +62,7 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
         console.error('Failed to fetch trending searches:', error)
       }
     }
-    
+
     if (trending.length === 0) {
       loadTrending()
     }
@@ -73,7 +73,7 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
     const value = e.target.value
     setLocalQuery(value)
     setQuery(value)
-    
+
     if (value.trim()) {
       debouncedGetSuggestions(value.trim())
     } else {
@@ -90,7 +90,7 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
     setQuery(trimmedQuery)
     setLocalQuery(trimmedQuery)
     setShowSuggestions(false)
-    
+
     // Navigate to search results
     navigate(`/search?q=${encodeURIComponent(trimmedQuery)}`)
   }
@@ -143,8 +143,8 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
   }
 
   const showDropdown = showSuggestions && (
-    suggestions.length > 0 || 
-    recentSearches.length > 0 || 
+    suggestions.length > 0 ||
+    recentSearches.length > 0 ||
     trending.length > 0
   )
 
@@ -166,9 +166,9 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
             onFocus={() => setShowSuggestions(true)}
             placeholder={placeholder}
             className={`
-              w-full pl-12 pr-12 border border-gray-200 rounded-xl
-              focus:outline-none focus:ring-4 focus:ring-primary-200 focus:border-primary-500
-              transition-all duration-200 bg-white placeholder-gray-400
+              w-full pl-12 pr-12 border border-dark-600 rounded-xl
+              focus:outline-none focus:ring-4 focus:ring-primary-900/50 focus:border-primary-500
+              transition-all duration-200 bg-dark-800 text-gray-100 placeholder-gray-500
               ${sizeClasses[size]}
             `}
           />
@@ -197,7 +197,7 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-strong border border-gray-200 z-50 max-h-96 overflow-y-auto"
+            className="absolute top-full left-0 right-0 mt-2 bg-dark-800 rounded-xl shadow-strong border border-dark-600 z-50 max-h-96 overflow-y-auto"
           >
             {/* Loading State */}
             {loadingSuggestions && (
@@ -216,14 +216,14 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
                 {suggestions.map((suggestion, index) => (
                   <motion.button
                     key={index}
-                    whileHover={{ backgroundColor: '#f9fafb' }}
+                    whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
                     onClick={() => handleSuggestionClick(suggestion)}
-                    className="w-full flex items-center justify-between px-3 py-2 text-left rounded-lg hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 text-left rounded-lg hover:bg-dark-700 transition-colors"
                   >
                     <div className="flex items-center space-x-3">
-                      <Search className="w-4 h-4 text-gray-400" />
+                      <Search className="w-4 h-4 text-gray-500" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900">
+                        <div className="text-sm font-medium text-gray-200">
                           {suggestion.text}
                         </div>
                         {suggestion.brand && (
@@ -233,7 +233,7 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
                         )}
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-gray-400" />
+                    <ArrowRight className="w-4 h-4 text-gray-500" />
                   </motion.button>
                 ))}
               </div>
@@ -241,7 +241,7 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
 
             {/* Recent Searches */}
             {recentSearches.length > 0 && !loadingSuggestions && (
-              <div className="p-2 border-t border-gray-100">
+              <div className="p-2 border-t border-dark-700">
                 <div className="flex items-center justify-between px-3 py-2">
                   <div className="text-xs font-medium text-gray-500 uppercase tracking-wide">
                     Recent Searches
@@ -256,12 +256,12 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
                 {recentSearches.slice(0, 5).map((recentQuery, index) => (
                   <motion.button
                     key={index}
-                    whileHover={{ backgroundColor: '#f9fafb' }}
+                    whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
                     onClick={() => handleRecentSearchClick(recentQuery)}
-                    className="w-full flex items-center space-x-3 px-3 py-2 text-left rounded-lg hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center space-x-3 px-3 py-2 text-left rounded-lg hover:bg-dark-700 transition-colors"
                   >
-                    <Clock className="w-4 h-4 text-gray-400" />
-                    <span className="text-sm text-gray-700">{recentQuery}</span>
+                    <Clock className="w-4 h-4 text-gray-500" />
+                    <span className="text-sm text-gray-300">{recentQuery}</span>
                   </motion.button>
                 ))}
               </div>
@@ -269,22 +269,22 @@ const SearchBar = ({ size = 'default', placeholder = 'Search for shoes, brands, 
 
             {/* Trending Searches */}
             {trending.length > 0 && !loadingSuggestions && suggestions.length === 0 && (
-              <div className="p-2 border-t border-gray-100">
+              <div className="p-2 border-t border-dark-700">
                 <div className="text-xs font-medium text-gray-500 px-3 py-2 uppercase tracking-wide">
                   Trending
                 </div>
                 {trending.slice(0, 5).map((trendingItem, index) => (
                   <motion.button
                     key={index}
-                    whileHover={{ backgroundColor: '#f9fafb' }}
+                    whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
                     onClick={() => handleRecentSearchClick(trendingItem.query)}
-                    className="w-full flex items-center justify-between px-3 py-2 text-left rounded-lg hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center justify-between px-3 py-2 text-left rounded-lg hover:bg-dark-700 transition-colors"
                   >
                     <div className="flex items-center space-x-3">
                       <TrendingUp className="w-4 h-4 text-primary-500" />
-                      <span className="text-sm text-gray-700">{trendingItem.query}</span>
+                      <span className="text-sm text-gray-300">{trendingItem.query}</span>
                     </div>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-500">
                       {trendingItem.search_count} searches
                     </span>
                   </motion.button>

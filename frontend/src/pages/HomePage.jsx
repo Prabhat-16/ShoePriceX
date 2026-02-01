@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { 
-  Search, 
-  TrendingUp, 
-  ShoppingBag, 
-  Zap, 
-  Shield, 
+import {
+  Search,
+  TrendingUp,
+  ShoppingBag,
+  Zap,
+  Shield,
   Clock,
   Star,
   ArrowRight,
@@ -25,7 +25,7 @@ const HomePage = () => {
     storesTracked: '5',
     avgSavings: '₹2,500'
   })
-  
+
   const { trending, setTrending } = useSearch()
 
   // Load trending data on mount
@@ -132,9 +132,9 @@ const HomePage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-secondary-50">
+      <section className="relative overflow-hidden bg-dark-900">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <motion.div
             variants={containerVariants}
@@ -144,19 +144,19 @@ const HomePage = () => {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
             >
               Find the{' '}
               <span className="gradient-text">Best Shoe Deals</span>
               <br />
               Across All Stores
             </motion.h1>
-            
+
             <motion.p
               variants={itemVariants}
-              className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto"
+              className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto"
             >
-              Compare prices from Amazon, Flipkart, Myntra, and official brand stores. 
+              Compare prices from Amazon, Flipkart, Myntra, and official brand stores.
               Save money and time with our intelligent price comparison platform.
             </motion.p>
 
@@ -165,8 +165,8 @@ const HomePage = () => {
               variants={itemVariants}
               className="max-w-2xl mx-auto mb-12"
             >
-              <SearchBar 
-                size="large" 
+              <SearchBar
+                size="large"
                 placeholder="Search for Nike Air Max, Adidas Ultraboost, or any shoe..."
               />
             </motion.div>
@@ -200,7 +200,7 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -208,7 +208,7 @@ const HomePage = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Why Choose ShoePriceX?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -232,10 +232,10 @@ const HomePage = () => {
                 <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <feature.icon className="w-8 h-8 text-primary-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                <h3 className="text-xl font-semibold text-white mb-4">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                   {feature.description}
                 </p>
               </motion.div>
@@ -246,7 +246,7 @@ const HomePage = () => {
 
       {/* Featured Deals Section */}
       {featuredDeals.length > 0 && (
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-dark-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -254,10 +254,10 @@ const HomePage = () => {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Featured Deals
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-400">
                 Hot deals and trending shoes with the best prices
               </p>
             </motion.div>
@@ -287,16 +287,16 @@ const HomePage = () => {
                       </span>
                     </div>
                   </div>
-                  
+
                   <div className="p-6">
-                    <div className="text-sm text-gray-500 mb-1">{deal.brand}</div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    <div className="text-sm text-primary-400 mb-1">{deal.brand}</div>
+                    <h3 className="text-lg font-semibold text-white mb-3">
                       {deal.name}
                     </h3>
-                    
+
                     <div className="flex items-center justify-between mb-4">
                       <div>
-                        <div className="text-2xl font-bold text-gray-900">
+                        <div className="text-2xl font-bold text-white">
                           {apiUtils.formatPrice(deal.currentPrice)}
                         </div>
                         <div className="text-sm text-gray-500 line-through">
@@ -313,7 +313,7 @@ const HomePage = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <Link
                       to={`/product/${deal.id}`}
                       className="btn-primary w-full flex items-center justify-center space-x-2"
@@ -331,7 +331,7 @@ const HomePage = () => {
 
       {/* Trending Searches Section */}
       {trending.length > 0 && (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-dark-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -339,10 +339,10 @@ const HomePage = () => {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Trending Searches
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-400">
                 See what others are searching for
               </p>
             </motion.div>
@@ -357,13 +357,13 @@ const HomePage = () => {
                 <Link
                   key={index}
                   to={`/search?q=${encodeURIComponent(item.query)}`}
-                  className="flex items-center space-x-2 px-6 py-3 bg-gray-100 hover:bg-primary-100 rounded-full transition-colors group"
+                  className="flex items-center space-x-2 px-6 py-3 bg-dark-800 hover:bg-dark-700 rounded-full transition-colors group"
                 >
                   <TrendingUp className="w-4 h-4 text-primary-500 group-hover:text-primary-600" />
-                  <span className="text-gray-700 group-hover:text-primary-700 font-medium">
+                  <span className="text-gray-300 group-hover:text-primary-400 font-medium">
                     {item.query}
                   </span>
-                  <span className="text-xs text-gray-500 bg-white px-2 py-1 rounded-full">
+                  <span className="text-xs text-gray-500 bg-dark-900 px-2 py-1 rounded-full">
                     {item.search_count}
                   </span>
                 </Link>
@@ -387,11 +387,11 @@ const HomePage = () => {
             <p className="text-xl text-primary-100 mb-8">
               Join thousands of smart shoppers who save money with ShoePriceX
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/search"
-                className="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-xl transition-colors flex items-center justify-center space-x-2"
+                className="bg-white text-primary-700 hover:bg-gray-100 font-semibold py-4 px-8 rounded-xl transition-colors flex items-center justify-center space-x-2"
               >
                 <Search className="w-5 h-5" />
                 <span>Start Searching</span>

@@ -5,7 +5,7 @@ import { Home, Search, ArrowLeft } from 'lucide-react'
 
 const NotFoundPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-dark-900 flex items-center justify-center">
       <div className="max-w-md mx-auto text-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,18 +14,18 @@ const NotFoundPage = () => {
         >
           {/* 404 Illustration */}
           <div className="mb-8">
-            <div className="text-8xl font-bold text-primary-200 mb-4">404</div>
-            <div className="w-32 h-32 mx-auto bg-gradient-to-br from-primary-100 to-secondary-100 rounded-full flex items-center justify-center">
+            <div className="text-8xl font-bold text-dark-700/50 mb-4">404</div>
+            <div className="w-32 h-32 mx-auto bg-dark-800 rounded-full flex items-center justify-center border-4 border-dark-700 shadow-glow">
               <Search className="w-16 h-16 text-primary-400" />
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl font-bold text-white mb-4">
             Page Not Found
           </h1>
-          
-          <p className="text-lg text-gray-600 mb-8">
-            Oops! The page you're looking for seems to have wandered off. 
+
+          <p className="text-lg text-gray-400 mb-8">
+            Oops! The page you're looking for seems to have wandered off.
             Let's get you back on track.
           </p>
 
@@ -37,7 +37,7 @@ const NotFoundPage = () => {
               <Home className="w-5 h-5" />
               <span>Go Home</span>
             </Link>
-            
+
             <Link
               to="/search"
               className="btn-secondary w-full flex items-center justify-center space-x-2"
@@ -45,7 +45,7 @@ const NotFoundPage = () => {
               <Search className="w-5 h-5" />
               <span>Search Shoes</span>
             </Link>
-            
+
             <button
               onClick={() => window.history.back()}
               className="btn-ghost w-full flex items-center justify-center space-x-2"
@@ -58,7 +58,7 @@ const NotFoundPage = () => {
           <div className="mt-12 text-sm text-gray-500">
             <p>
               If you think this is a mistake, please{' '}
-              <Link to="/contact" className="text-primary-600 hover:text-primary-700 underline">
+              <Link to="/contact" className="text-primary-400 hover:text-primary-300 underline">
                 contact us
               </Link>
             </p>

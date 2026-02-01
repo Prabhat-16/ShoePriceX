@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { 
-  ArrowLeft, 
-  ExternalLink, 
-  Star, 
-  TrendingUp, 
+import {
+  ArrowLeft,
+  ExternalLink,
+  Star,
+  TrendingUp,
   ShoppingCart,
   Heart,
   Share2,
@@ -84,10 +84,10 @@ const ProductDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-dark-900 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-8 h-8 animate-spin text-primary-500 mx-auto mb-4" />
-          <p className="text-gray-600">Loading product details...</p>
+          <p className="text-gray-400">Loading product details...</p>
         </div>
       </div>
     )
@@ -95,13 +95,13 @@ const ProductDetailPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-dark-900 flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-white mb-2">
             Product Not Found
           </h3>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <p className="text-gray-400 mb-6">{error}</p>
           <Link to="/" className="btn-primary">
             Back to Home
           </Link>
@@ -119,21 +119,21 @@ const ProductDetailPage = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-dark-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
-          <Link to="/" className="hover:text-gray-700">Home</Link>
+        <nav className="flex items-center space-x-2 text-sm text-gray-400 mb-8">
+          <Link to="/" className="hover:text-gray-200">Home</Link>
           <span>/</span>
-          <Link to="/search" className="hover:text-gray-700">Search</Link>
+          <Link to="/search" className="hover:text-gray-200">Search</Link>
           <span>/</span>
-          <span className="text-gray-900">{product.name}</span>
+          <span className="text-white">{product.name}</span>
         </nav>
 
         {/* Back Button */}
         <button
           onClick={() => window.history.back()}
-          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-6"
+          className="flex items-center space-x-2 text-gray-400 hover:text-white mb-6"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Results</span>
@@ -145,7 +145,7 @@ const ProductDetailPage = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="aspect-square bg-white rounded-2xl overflow-hidden shadow-soft"
+              className="aspect-square bg-dark-800 rounded-2xl overflow-hidden shadow-soft border border-dark-700"
             >
               <img
                 src={images[selectedImage]}
@@ -153,18 +153,17 @@ const ProductDetailPage = () => {
                 className="w-full h-full object-cover"
               />
             </motion.div>
-            
+
             {/* Thumbnail Images */}
             <div className="flex space-x-4">
               {images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
-                    selectedImage === index 
-                      ? 'border-primary-500' 
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
+                  className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${selectedImage === index
+                      ? 'border-primary-500'
+                      : 'border-dark-700 hover:border-dark-500'
+                    }`}
                 >
                   <img
                     src={image}
@@ -179,26 +178,25 @@ const ProductDetailPage = () => {
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <div className="text-sm text-gray-500 mb-2">{product.brand}</div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              <div className="text-sm text-primary-400 mb-2">{product.brand}</div>
+              <h1 className="text-3xl font-bold text-white mb-4">
                 {product.name}
               </h1>
-              
+
               {product.avg_rating && (
                 <div className="flex items-center space-x-2 mb-4">
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`w-5 h-5 ${
-                          i < Math.floor(product.avg_rating)
+                        className={`w-5 h-5 ${i < Math.floor(product.avg_rating)
                             ? 'text-yellow-400 fill-current'
-                            : 'text-gray-300'
-                        }`}
+                            : 'text-dark-600'
+                          }`}
                       />
                     ))}
                   </div>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-400">
                     {product.avg_rating.toFixed(1)} ({product.total_reviews} reviews)
                   </span>
                 </div>
@@ -206,27 +204,27 @@ const ProductDetailPage = () => {
             </div>
 
             {/* Price Range */}
-            <div className="bg-white rounded-xl p-6 shadow-soft">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Price Range</h3>
+            <div className="bg-dark-800 rounded-xl p-6 shadow-soft border border-dark-700">
+              <h3 className="text-lg font-semibold text-white mb-4">Price Range</h3>
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-3xl font-bold text-primary-600">
+                  <div className="text-3xl font-bold text-primary-400">
                     {apiUtils.formatPrice(product.lowest_price)}
                   </div>
-                  <div className="text-sm text-gray-500">Lowest Price</div>
+                  <div className="text-sm text-gray-400">Lowest Price</div>
                 </div>
                 {product.highest_price && product.lowest_price !== product.highest_price && (
                   <div className="text-right">
-                    <div className="text-xl font-semibold text-gray-600">
+                    <div className="text-xl font-semibold text-gray-300">
                       {apiUtils.formatPrice(product.highest_price)}
                     </div>
-                    <div className="text-sm text-gray-500">Highest Price</div>
+                    <div className="text-sm text-gray-400">Highest Price</div>
                   </div>
                 )}
               </div>
-              
-              <div className="mt-4 p-4 bg-success-50 rounded-lg">
-                <div className="flex items-center space-x-2 text-success-700">
+
+              <div className="mt-4 p-4 bg-success-900/20 rounded-lg border border-success-900/30">
+                <div className="flex items-center space-x-2 text-success-400">
                   <CheckCircle className="w-5 h-5" />
                   <span className="font-medium">
                     Save up to {apiUtils.formatPrice(product.highest_price - product.lowest_price)}
@@ -244,14 +242,14 @@ const ProductDetailPage = () => {
                 <TrendingUp className="w-5 h-5" />
                 <span>Compare Prices</span>
               </Link>
-              
+
               <button
                 onClick={handleShare}
                 className="btn-secondary px-4"
               >
                 <Share2 className="w-5 h-5" />
               </button>
-              
+
               <button className="btn-secondary px-4">
                 <Heart className="w-5 h-5" />
               </button>
@@ -259,36 +257,36 @@ const ProductDetailPage = () => {
 
             {/* Product Details */}
             {product.description && (
-              <div className="bg-white rounded-xl p-6 shadow-soft">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Description</h3>
-                <p className="text-gray-600 leading-relaxed">{product.description}</p>
+              <div className="bg-dark-800 rounded-xl p-6 shadow-soft border border-dark-700">
+                <h3 className="text-lg font-semibold text-white mb-4">Description</h3>
+                <p className="text-gray-400 leading-relaxed">{product.description}</p>
               </div>
             )}
 
             {/* Specifications */}
-            <div className="bg-white rounded-xl p-6 shadow-soft">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Specifications</h3>
+            <div className="bg-dark-800 rounded-xl p-6 shadow-soft border border-dark-700">
+              <h3 className="text-lg font-semibold text-white mb-4">Specifications</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="text-sm text-gray-500">Brand</div>
-                  <div className="font-medium">{product.brand}</div>
+                  <div className="font-medium text-gray-200">{product.brand}</div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Model</div>
-                  <div className="font-medium">{product.model || 'N/A'}</div>
+                  <div className="font-medium text-gray-200">{product.model || 'N/A'}</div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Category</div>
-                  <div className="font-medium capitalize">{product.category}</div>
+                  <div className="font-medium capitalize text-gray-200">{product.category}</div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Gender</div>
-                  <div className="font-medium capitalize">{product.gender || 'Unisex'}</div>
+                  <div className="font-medium capitalize text-gray-200">{product.gender || 'Unisex'}</div>
                 </div>
                 {product.color && (
                   <div>
                     <div className="text-sm text-gray-500">Color</div>
-                    <div className="font-medium">{product.color}</div>
+                    <div className="font-medium text-gray-200">{product.color}</div>
                   </div>
                 )}
               </div>
@@ -299,7 +297,7 @@ const ProductDetailPage = () => {
         {/* Store Prices */}
         {product.prices && product.prices.length > 0 && (
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Available at These Stores</h2>
+            <h2 className="text-2xl font-bold text-white mb-6">Available at These Stores</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {product.prices.map((price, index) => (
                 <motion.div
@@ -307,27 +305,27 @@ const ProductDetailPage = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="card p-6 card-hover"
+                  className="card p-6 card-hover bg-dark-800 border border-dark-700"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <img
                         src={price.store_logo || `https://logo.clearbit.com/${price.store_name.toLowerCase()}.com`}
                         alt={price.store_name}
-                        className="w-8 h-8 rounded"
+                        className="w-8 h-8 rounded bg-white p-0.5"
                         onError={(e) => {
                           e.target.src = 'https://via.placeholder.com/32x32?text=' + price.store_name[0]
                         }}
                       />
-                      <span className="font-semibold text-gray-900">{price.store_name}</span>
+                      <span className="font-semibold text-white">{price.store_name}</span>
                     </div>
                     <span className={`text-sm font-medium ${getAvailabilityColor(price.availability)}`}>
                       {getAvailabilityText(price.availability)}
                     </span>
                   </div>
-                  
+
                   <div className="mb-4">
-                    <div className="text-2xl font-bold text-gray-900">
+                    <div className="text-2xl font-bold text-white">
                       {apiUtils.formatPrice(price.price)}
                     </div>
                     {price.original_price && price.original_price > price.price && (
@@ -335,20 +333,20 @@ const ProductDetailPage = () => {
                         <span className="text-sm text-gray-500 line-through">
                           {apiUtils.formatPrice(price.original_price)}
                         </span>
-                        <span className="text-sm font-medium text-success-600">
+                        <span className="text-sm font-medium text-success-400">
                           {price.discount_percentage}% off
                         </span>
                       </div>
                     )}
                   </div>
-                  
+
                   {price.delivery_time && (
                     <div className="flex items-center space-x-2 text-sm text-gray-500 mb-4">
                       <Clock className="w-4 h-4" />
                       <span>{price.delivery_time}</span>
                     </div>
                   )}
-                  
+
                   <a
                     href={price.product_url}
                     target="_blank"

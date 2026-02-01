@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { 
-  ShoppingBag, 
-  Mail, 
-  Phone, 
+import {
+  ShoppingBag,
+  Mail,
+  Phone,
   MapPin,
   Github,
   Twitter,
@@ -43,7 +43,7 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-dark-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16">
@@ -56,12 +56,12 @@ const Footer = () => {
                 </div>
                 <span className="text-xl font-bold">ShoePriceX</span>
               </Link>
-              
+
               <p className="text-gray-300 mb-6 max-w-md">
-                Your ultimate destination for comparing shoe prices across multiple stores. 
+                Your ultimate destination for comparing shoe prices across multiple stores.
                 Save money and time with our intelligent price comparison platform.
               </p>
-              
+
               <div className="space-y-3">
                 <div className="flex items-center space-x-3 text-gray-300">
                   <Mail className="w-5 h-5 text-primary-400" />
@@ -138,7 +138,7 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-2">Stay Updated</h3>
               <p className="text-gray-300">Get notified about the best shoe deals and price drops</p>
             </div>
-            
+
             <div className="flex w-full md:w-auto">
               <input
                 type="email"
@@ -162,7 +162,7 @@ const Footer = () => {
               <span className="mx-2">•</span>
               <span>© {currentYear} ShoePriceX. All rights reserved.</span>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               {socialLinks.map((social, index) => (
                 <motion.a
