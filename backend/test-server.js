@@ -18,8 +18,8 @@ app.use(express.json());
 
 // Test routes without database
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     message: 'Server is running',
     timestamp: new Date().toISOString()
   });
@@ -42,7 +42,7 @@ app.get('/api', (req, res) => {
 // Mock search endpoint
 app.get('/api/search', (req, res) => {
   const { q, brand, category, minPrice, maxPrice, sortBy = 'relevance', page = 1, limit = 20 } = req.query;
-  
+
   // Comprehensive mock product database
   const allMockProducts = [
     // Nike Products
@@ -110,7 +110,7 @@ app.get('/api/search', (req, res) => {
       avg_rating: 4.6,
       search_keywords: 'nike dunk low casual streetwear white black'
     },
-    
+
     // Adidas Products
     {
       id: 5,
@@ -176,7 +176,7 @@ app.get('/api/search', (req, res) => {
       avg_rating: 4.4,
       search_keywords: 'adidas gazelle casual retro navy white suede'
     },
-    
+
     // Puma Products
     {
       id: 9,
@@ -226,7 +226,7 @@ app.get('/api/search', (req, res) => {
       avg_rating: 4.0,
       search_keywords: 'puma future rider running retro black yellow'
     },
-    
+
     // Converse Products
     {
       id: 12,
@@ -260,7 +260,7 @@ app.get('/api/search', (req, res) => {
       avg_rating: 4.5,
       search_keywords: 'converse chuck 70 casual premium white canvas vintage'
     },
-    
+
     // New Balance Products
     {
       id: 14,
@@ -294,7 +294,7 @@ app.get('/api/search', (req, res) => {
       avg_rating: 4.2,
       search_keywords: 'new balance 574 casual lifestyle navy grey retro'
     },
-    
+
     // Vans Products
     {
       id: 16,
@@ -328,7 +328,7 @@ app.get('/api/search', (req, res) => {
       avg_rating: 4.3,
       search_keywords: 'vans authentic casual classic red canvas skate'
     },
-    
+
     // Reebok Products
     {
       id: 18,
@@ -362,7 +362,7 @@ app.get('/api/search', (req, res) => {
       avg_rating: 4.5,
       search_keywords: 'reebok nano x training crossfit black red fitness'
     },
-    
+
     // Jordan Products
     {
       id: 20,
@@ -388,7 +388,7 @@ app.get('/api/search', (req, res) => {
   // Search by query (name, brand, model, keywords)
   if (q && q.trim()) {
     const searchTerm = q.toLowerCase().trim();
-    filteredProducts = filteredProducts.filter(product => 
+    filteredProducts = filteredProducts.filter(product =>
       product.name.toLowerCase().includes(searchTerm) ||
       product.brand.toLowerCase().includes(searchTerm) ||
       product.model.toLowerCase().includes(searchTerm) ||
@@ -400,26 +400,26 @@ app.get('/api/search', (req, res) => {
 
   // Filter by brand
   if (brand && brand.trim()) {
-    filteredProducts = filteredProducts.filter(product => 
+    filteredProducts = filteredProducts.filter(product =>
       product.brand.toLowerCase() === brand.toLowerCase().trim()
     );
   }
 
   // Filter by category
   if (category && category.trim()) {
-    filteredProducts = filteredProducts.filter(product => 
+    filteredProducts = filteredProducts.filter(product =>
       product.category.toLowerCase() === category.toLowerCase().trim()
     );
   }
 
   // Filter by price range
   if (minPrice) {
-    filteredProducts = filteredProducts.filter(product => 
+    filteredProducts = filteredProducts.filter(product =>
       product.min_price >= parseInt(minPrice)
     );
   }
   if (maxPrice) {
-    filteredProducts = filteredProducts.filter(product => 
+    filteredProducts = filteredProducts.filter(product =>
       product.min_price <= parseInt(maxPrice)
     );
   }
@@ -446,11 +446,11 @@ app.get('/api/search', (req, res) => {
         const searchTerm = q.toLowerCase().trim();
         filteredProducts.sort((a, b) => {
           const aScore = (a.name.toLowerCase().includes(searchTerm) ? 10 : 0) +
-                        (a.brand.toLowerCase().includes(searchTerm) ? 8 : 0) +
-                        (a.model.toLowerCase().includes(searchTerm) ? 6 : 0);
+            (a.brand.toLowerCase().includes(searchTerm) ? 8 : 0) +
+            (a.model.toLowerCase().includes(searchTerm) ? 6 : 0);
           const bScore = (b.name.toLowerCase().includes(searchTerm) ? 10 : 0) +
-                        (b.brand.toLowerCase().includes(searchTerm) ? 8 : 0) +
-                        (b.model.toLowerCase().includes(searchTerm) ? 6 : 0);
+            (b.brand.toLowerCase().includes(searchTerm) ? 8 : 0) +
+            (b.model.toLowerCase().includes(searchTerm) ? 6 : 0);
           return bScore - aScore;
         });
       }
@@ -470,15 +470,15 @@ app.get('/api/search', (req, res) => {
     message: `Found ${filteredProducts.length} products${q ? ` for "${q}"` : ''}`,
     data: {
       products: paginatedProducts,
-      pagination: { 
-        page: pageNum, 
-        limit: limitNum, 
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
         total: filteredProducts.length,
         totalPages: totalPages,
         hasNext: pageNum < totalPages,
         hasPrev: pageNum > 1
       },
-      filters: { 
+      filters: {
         query: q,
         brand,
         category,
@@ -493,7 +493,7 @@ app.get('/api/search', (req, res) => {
 // Mock search suggestions
 app.get('/api/search/suggestions', (req, res) => {
   const { q } = req.query;
-  
+
   const allSuggestions = [
     { text: 'Nike Air Max', type: 'product', brand: 'Nike' },
     { text: 'Nike Air Force 1', type: 'product', brand: 'Nike' },
@@ -524,7 +524,7 @@ app.get('/api/search/suggestions', (req, res) => {
   ];
 
   let filteredSuggestions = allSuggestions;
-  
+
   if (q && q.trim()) {
     const searchTerm = q.toLowerCase().trim();
     filteredSuggestions = allSuggestions.filter(suggestion =>
@@ -576,7 +576,7 @@ app.get('/api/search/trending', (req, res) => {
 app.get('/api/product/:id', (req, res) => {
   const { id } = req.params;
   const productId = parseInt(id);
-  
+
   // Use the same product database as search
   const allMockProducts = [
     // Nike Products
@@ -652,7 +652,7 @@ app.get('/api/product/:id', (req, res) => {
       total_reviews: 1560,
       search_keywords: 'nike dunk low casual streetwear white black'
     },
-    
+
     // Adidas Products
     {
       id: 5,
@@ -726,7 +726,7 @@ app.get('/api/product/:id', (req, res) => {
       total_reviews: 1890,
       search_keywords: 'adidas gazelle casual retro navy white suede'
     },
-    
+
     // Puma Products
     {
       id: 9,
@@ -782,7 +782,7 @@ app.get('/api/product/:id', (req, res) => {
       total_reviews: 560,
       search_keywords: 'puma future rider running retro black yellow'
     },
-    
+
     // Converse Products
     {
       id: 12,
@@ -820,7 +820,7 @@ app.get('/api/product/:id', (req, res) => {
       total_reviews: 2100,
       search_keywords: 'converse chuck 70 casual premium white canvas vintage'
     },
-    
+
     // New Balance Products
     {
       id: 14,
@@ -858,7 +858,7 @@ app.get('/api/product/:id', (req, res) => {
       total_reviews: 1670,
       search_keywords: 'new balance 574 casual lifestyle navy grey retro'
     },
-    
+
     // Vans Products
     {
       id: 16,
@@ -896,7 +896,7 @@ app.get('/api/product/:id', (req, res) => {
       total_reviews: 1980,
       search_keywords: 'vans authentic casual classic red canvas skate'
     },
-    
+
     // Reebok Products
     {
       id: 18,
@@ -934,7 +934,7 @@ app.get('/api/product/:id', (req, res) => {
       total_reviews: 670,
       search_keywords: 'reebok nano x training crossfit black red fitness'
     },
-    
+
     // Jordan Products
     {
       id: 20,
@@ -958,7 +958,7 @@ app.get('/api/product/:id', (req, res) => {
 
   // Find the specific product
   const product = allMockProducts.find(p => p.id === productId);
-  
+
   if (!product) {
     return res.status(404).json({
       success: false,
@@ -984,6 +984,28 @@ app.get('/api/product/:id', (req, res) => {
       const price = basePrice + (priceRange * Math.random());
       const originalPrice = price + (price * 0.1 * Math.random()); // 0-10% higher original price
       const discount = ((originalPrice - price) / originalPrice) * 100;
+      const encodedName = encodeURIComponent(product.name);
+
+      let productUrl = '';
+      switch (store.name) {
+        case 'Amazon':
+          productUrl = `https://www.amazon.in/s?k=${encodedName}`;
+          break;
+        case 'Flipkart':
+          productUrl = `https://www.flipkart.com/search?q=${encodedName}`;
+          break;
+        case 'Myntra':
+          productUrl = `https://www.myntra.com/${product.name.toLowerCase().replace(/\s+/g, '-')}`;
+          break;
+        case 'Ajio':
+          productUrl = `https://www.ajio.com/search/?text=${encodedName}`;
+          break;
+        case 'Nykaa Fashion':
+          productUrl = `https://www.nykaafashion.com/catalogsearch/result/?q=${encodedName}`;
+          break;
+        default:
+          productUrl = `${store.base_url}/search?q=${encodedName}`;
+      }
 
       return {
         store_name: store.name,
@@ -992,7 +1014,7 @@ app.get('/api/product/:id', (req, res) => {
         original_price: Math.round(originalPrice),
         discount_percentage: Math.round(discount),
         availability: ['in_stock', 'in_stock', 'in_stock', 'limited_stock'][Math.floor(Math.random() * 4)],
-        product_url: `${store.base_url}/product/${product.id}`,
+        product_url: productUrl,
         delivery_time: ['1-2 days', '2-3 days', '3-5 days', 'Same day'][Math.floor(Math.random() * 4)],
         last_scraped: new Date().toISOString()
       };
@@ -1018,7 +1040,7 @@ app.get('/api/product/:id', (req, res) => {
 app.get('/api/compare/:productId', (req, res) => {
   const { productId } = req.params;
   const id = parseInt(productId);
-  
+
   // Use the same product database
   const allMockProducts = [
     // Nike Products
@@ -1232,7 +1254,7 @@ app.get('/api/compare/:productId', (req, res) => {
   ];
 
   const product = allMockProducts.find(p => p.id === id);
-  
+
   if (!product) {
     return res.status(404).json({
       success: false,
@@ -1258,6 +1280,28 @@ app.get('/api/compare/:productId', (req, res) => {
       const price = basePrice + (priceRange * Math.random());
       const originalPrice = price + (price * 0.15 * Math.random());
       const discount = ((originalPrice - price) / originalPrice) * 100;
+      const encodedName = encodeURIComponent(product.name);
+
+      let productUrl = '';
+      switch (store.name) {
+        case 'Amazon':
+          productUrl = `https://www.amazon.in/s?k=${encodedName}`;
+          break;
+        case 'Flipkart':
+          productUrl = `https://www.flipkart.com/search?q=${encodedName}`;
+          break;
+        case 'Myntra':
+          productUrl = `https://www.myntra.com/${product.name.toLowerCase().replace(/\s+/g, '-')}`;
+          break;
+        case 'Ajio':
+          productUrl = `https://www.ajio.com/search/?text=${encodedName}`;
+          break;
+        case 'Nykaa Fashion':
+          productUrl = `https://www.nykaafashion.com/catalogsearch/result/?q=${encodedName}`;
+          break;
+        default:
+          productUrl = `${store.base_url}/search?q=${encodedName}`;
+      }
 
       return {
         store_name: store.name,
@@ -1265,7 +1309,7 @@ app.get('/api/compare/:productId', (req, res) => {
         original_price: Math.round(originalPrice),
         discount_percentage: Math.round(discount),
         availability: ['in_stock', 'in_stock', 'limited_stock'][Math.floor(Math.random() * 3)],
-        product_url: `${store.base_url}/product/${product.id}`,
+        product_url: productUrl,
         is_lowest_price: false,
         savings_vs_highest: 0,
         last_scraped: new Date().toISOString()
